@@ -1,73 +1,427 @@
 
 <html>
 <head>
-<title>Ryan Tibshirani</title>
+<title>Statistical Computing</title>
 <link rel=StyleSheet href="style.css" type="text/css" media=screen>
-
-<script type="text/javascript" language="JavaScript">
-NumberOfImages = 5;
-FirstPart = '<img src="3dSquaredErrorAndCircle';
-LastPart = '.pdf" style="height: 275px;">';
-function randomImage() {
-var r = Math.ceil(Math.random() * NumberOfImages);
-document.write(FirstPart + r + LastPart);
-}
-</script>
 </head>
 
 <body>
-<hr>
+<a name="top"></a>
+<h1>Statistical Computing: Spring 2018</h1>
 
-<h1 style="text-align: center;">Ryan Tibshirani</h1>
-<hr>
+<table style="width: 100%;"><tr>
+<td>  
+<h2>Statistics 36-350</h2>
 
-<table style="width: 75%; margin: auto;">
-<tr>
-<td id="top"><span style="text-decoration: underline;">
-<a id="top" href="index.html">Home</a></span></td>
-<td id="top">
-<a id="top" href="research.html">Research</a></td>
-<td id="top">
-<a id="top" href="teaching.html">Teaching</a></td>
-<td id="top">
-<a id="top" href="students.html">Students</a></td>
-<td id="top">
-<a id="top" href="other.html">Other</a></td>
-</tr>
-</table>
-<hr>
-
-<table style="width: 100%; border-spacing: 10px 10px;" border="0" cellpadding="0" cellspacing="0">  
-<tr>
-<td style="width: 65%">
-<img src="ryan.jpg" style="width: 100%;"></td>
-<!--<script type="text/javascript" language="JavaScript">
-randomImage();</script></td>-->
-<td style="text-align: center; width: 35%;">
-Ryan Tibshirani<br>
-Associate Professor<br>
-<a href="http://www.stat.cmu.edu">Department of Statistics</a> and<br>
-<a href="http://www.ml.cmu.edu">Machine Learning Department</a><br>
-<a href="http://www.cmu.edu">Carnegie Mellon University</a><br>
+<b>Instructor:</b>
+<a href="http://www.stat.cmu.edu/~ryantibs/">Ryan Tibshirani</a>
+  (ryantibs at cmu dot edu)<br>
+<b>Associate Instructor:</b>
+<a href="http://www.stat.cmu.edu/people/students/kevinl1">Kevin Lin</a>
+  (kevinl1 at andrew dot cmu dot edu)<br>
+  
 <br>
-229B Baker Hall<br>
-Carnegie Mellon University<br>
-Pittsburgh, PA 15213<br>
-(412) 268-1884<br>
-<img alt="" src="email.gif" border="0"><br>
+<i>Important note: please direct inquiries on all course related matters
+  to Associate Instructor Kevin Lin. The subject line of all emails should begin 
+  with "[36-350]".
+  <!--Professor Tibshirani is available but only for issues that cannot be --> 
+  <!--resolved first with the Associate Instructor.--></i><br>  
+ 
+<br>
+<b>TAs:</b><br>
+  Tanguy Dauphin (tdauphin at andrew dot cmu dot edu)<br>
+  Taylor Pospisil (tpospisi at andrew dot cmu dot edu)<br>
+  Shamindra Shrotriya (sshrotri at andrew dot cmu dot edu)<br>
+  
+<br>
+<b>Lecture times:</b>
+Tuesdays and Thursdays 12-1:20pm, Baker Hall A51<br> 
+
+<br>
+<b>Office hours:</b><br>
+  RT: Mondays 3-4pm, Wednesdays 2-3pm, Fridays 1-2pm in Baker Hall 229B<br>   
+  TD: Thursdays 1:30-2:30pm in Baker 132A <br>
+  TP: Fridays 4-5pm in Wean 4625 <br>
+  SS: Thursdays 10-11am in Baker 132Q <br>  
+
+<br>
+<b>Syllabus:</b> 
+  <a href="syllabus.html">here</a>. 
+<b>Discussions:</b>
+  <a href="http://www.piazza.com/cmu/spring2018/36350">Piazza group</a>.  
 </td>
-</tr>
-</table>
+<td style="width: 50%; text-align: center; padding-left: 1em">
+  <a href="contour.R"><img src="3dSquaredErrorAndCircle.pdf" style="width: 100%"></a>
+</td>
+</tr></table>
 
-<br>
-My research interests lie broadly in statistics, machine learning, and
-optimization. I like to think about problems from different angles: applied, 
-computational, theoretical. And I love to learn about interesting problems 
-from other disciplines!
+<hr id="dash">
+<h2>Class schedule</h2>
 
-<br><br>
-<bold>Current teaching (Spring 2018):</bold>
-<a href="statcomp">36-350: Statistical Computing</a>
+<ul>
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 1 (Tues Jan 16 + Thur Jan 18).</b>
+  Basic data structures.<br>
 
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/intro_slides.html">slides</a>,
+    <a href="lectures/intro.html">html</a>,
+    <a href="lectures/intro.Rmd">Rmd</a>
+
+    <br>
+    <li>Intruder code: <a href="lectures/intruder_demo.R">intruder_demo.R</a>,
+    <a href="lectures/intruder.R">intruder.R</a>
+    
+    <li>Lab 1:
+    <a href="labs/lab_01.html">html</a>,
+    <a href="labs/lab_01.Rmd">Rmd</a> (due Sunday at 10pm, note different time) 
+
+    <li><i>No homework!</i> Use the time to learn basics of R, if you need to 
+
+    <li>Supplementary online intro to R (by Howard Seltman):
+    <a href="http://shiny.stat.cmu.edu:3838/hseltman/IROL/">IROL</a>
+    
+  </ul>
+  
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 2 (Tues Jan 23 + Thur Jan 25).</b>
+  Indexing and iteration.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/iteration_slides.html">slides</a>,
+    <a href="lectures/iteration.html">html</a>,
+    <a href="lectures/iteration.Rmd">Rmd</a>
+    
+    <li>Lab 2:
+    <a href="labs/lab_02.html">html</a>,
+    <a href="labs/lab_02.Rmd">Rmd</a> 
+
+    <li>Hw 1:
+    <a href="homework/hw_01.html">html</a>,
+    <a href="homework/hw_01.Rmd">Rmd</a> 
+  </ul>
+  
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 3 (Tues Jan 30 + Thur Feb 1).</b>
+  Text manipulation.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/text_slides.html">slides</a>,
+    <a href="lectures/text.html">html</a>,
+    <a href="lectures/text.Rmd">Rmd</a>
+    
+    <li>Lab 3:
+    <a href="labs/lab_03.html">html</a>,
+    <a href="labs/lab_03.Rmd">Rmd</a> 
+
+    <li>Hw 2:
+    <a href="homework/hw_02.html">html</a>,
+    <a href="homework/hw_02.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 4 (Tues Feb 6 + Thur Feb 8).</b>
+  Data frames and apply.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 4:
+    <a href="labs/lab_04.html">html</a>,
+    <a href="labs/lab_04.Rmd">Rmd</a> 
+
+    <li>Hw 3:
+    <a href="homework/hw_03.html">html</a>,
+    <a href="homework/hw_03.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 5 (Tues Feb 13 + Thur Feb 15).</b>
+  Plotting.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 5:
+    <a href="labs/lab_05.html">html</a>,
+    <a href="labs/lab_05.Rmd">Rmd</a> 
+
+    <li>Hw 4:
+    <a href="homework/hw_04.html">html</a>,
+    <a href="homework/hw_04.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 6 (Tues Feb 20 + Thur Feb 22).</b>
+  Functions.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 6:
+    <a href="labs/lab_06.html">html</a>,
+    <a href="labs/lab_06.Rmd">Rmd</a> 
+
+    <li>Hw 5:
+    <a href="homework/hw_05.html">html</a>,
+    <a href="homework/hw_05.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 7 (Tues Feb 27 + Thur Mar 1).</b>
+  Simulation.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 7:
+    <a href="labs/lab_07.html">html</a>,
+    <a href="labs/lab_07.Rmd">Rmd</a> 
+
+    <li>Hw 6:
+    <a href="homework/hw_06.html">html</a>,
+    <a href="homework/hw_06.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 8 (Tues Mar 6 + Thur Mar 8).</b>
+  Reading in and manipulating data.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 8:
+    <a href="labs/lab_08.html">html</a>,
+    <a href="labs/lab_08.Rmd">Rmd</a> 
+
+    <li>Hw 7:
+    <a href="homework/hw_07.html">html</a>,
+    <a href="homework/hw_07.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 9.</b>
+  <i>No class: Spring Break!</i><br>
+  
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 10 (Tues Mar 20 + Thur Mar 22).</b>
+  Fitting models to data.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 9:
+    <a href="labs/lab_09.html">html</a>,
+    <a href="labs/lab_09.Rmd">Rmd</a> 
+
+    <li>Hw 8:
+    <a href="homework/hw_08.html">html</a>,
+    <a href="homework/hw_08.Rmd">Rmd</a> 
+  </ul>
+  
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 11 (Tues Mar 27 + Thur Mar 29).</b>
+  Split-apply-combine.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 10:
+    <a href="labs/lab_10.html">html</a>,
+    <a href="labs/lab_10.Rmd">Rmd</a> 
+
+    <li>Hw 9:
+    <a href="homework/hw_09.html">html</a>,
+    <a href="homework/hw_09.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 12 (Tues Apr 3 + Thur Apr 5).</b>
+  Debugging and testing.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 11:
+    <a href="labs/lab_11.html">html</a>,
+    <a href="labs/lab_11.Rmd">Rmd</a> 
+
+    <li>Hw 10:
+    <a href="homework/hw_10.html">html</a>,
+    <a href="homework/hw_10.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 13 (Tues Apr 10 + Thur Apr 12).</b>
+  Relational databases.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 12:
+    <a href="labs/lab_12.html">html</a>,
+    <a href="labs/lab_12.Rmd">Rmd</a> 
+
+    <li>Hw 11:
+    <a href="homework/hw_11.html">html</a>,
+    <a href="homework/hw_11.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 14 (Tues Apr 17).</b>
+  GitHub.<br>
+  <i>No class Thursday: Spring Carnival!</i><br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 13:
+    <a href="labs/lab_13.html">html</a>,
+    <a href="labs/lab_13.Rmd">Rmd</a> 
+
+    <li><i>No homework!</i>
+  </ul>
+
+  <li style="background-color:#EFE9E9; padding:1em">
+  <b>Week 15 (Tues Apr 24 + Thur Apr 26).</b>
+  Statistical prediction.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 14:
+    <a href="labs/lab_14.html">html</a>,
+    <a href="labs/lab_14.Rmd">Rmd</a> 
+
+    <li>Hw 12:
+    <a href="homework/hw_12.html">html</a>,
+    <a href="homework/hw_12.Rmd">Rmd</a> 
+  </ul>
+
+  <li style="background-color:#FFFFFF; padding:1em">
+  <b>Week 16 (Tues May 1 + Thur May 3).</b>
+  Final project week.<br>
+  
+  <br>
+  <ul id="sub">
+    <li>Notes:
+    <a href="lectures/introduction_slides.html">slides</a>,
+    <a href="lectures/introduction.html">html</a>,
+    <a href="lectures/introduction.Rmd">Rmd</a>
+    
+    <li>Lab 15:
+    <a href="labs/lab_15.html">html</a>,
+    <a href="labs/lab_15.Rmd">Rmd</a> 
+
+    <li>Final project:
+    <a href="exam/final.html">html</a>,
+    <a href="exam/final.Rmd">Rmd</a> 
+  </ul>
+</ul>
+
+<a href="#top">Top</a>
+<hr id="dash">
+
+<h2>Supplementary materials</h2>
+
+Supplementary textbooks on R programming:
+<ul>
+<li><a
+  href="http://www.amazon.com/Cookbook-OReilly-Cookbooks-Paul-Teetor/dp/0596809158">The 
+  R Cookbook</a>, by Paul Teetor 
+<li><a href=
+  "http://www.amazon.com/R-Graphics-Cookbook-Winston-Chang/dp/1449316956">The
+  R Graphics Cookbook</a>, by Winston Chang
+<li><a
+  href="http://www.amazon.com/The-Art-Programming-Statistical-Software/dp/1593273843">The
+  Art of R Programming: A Tour of Statistical Software Design</a>, by
+  Norman Matloff 
+<li><a
+  href="http://www.amazon.com/Data-Manipulation-R-Use/dp/0387747303">Data
+  Manipulation with R</a>, by Phil Spector
+<li><a
+  href="http://www.amazon.com/Software-Data-Analysis-Programming-Statistics/dp/0387759352">Software 
+for Data Analysis: Programming with R</a>, by John Chambers (advanced
+  book) 
+</ul>
+
+Online resources for R programming:
+<ul>
+<li>The official intro, "An Introduction to R", available online in
+<a href="http://cran.r-project.org/doc/manuals/R-intro.html">html</a>
+and <a
+  href="http://cran.r-project.org/doc/manuals/R-intro.pdf">pdf</a>
+  versions 
+<li><a
+  href="http://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf">simpleR</a>,
+  by John Verzani
+<li><a
+  href="https://google.github.io/styleguide/Rguide.xml">Google
+  R Style Guide</a> offers some rules for naming, spacing, etc., which
+  are generally good ideas 
+<li><a href="http://www.statmethods.net/">Quick-R</a>, this is
+primarily aimed at those who already know a commercial statistics
+package like SAS, SPSS or Stata, but it's very clear and
+well-organized, and others may find it useful as well
+<li><a href="http://www.burns-stat.com/pages/Tutor/R_inferno.pdf">The R
+Inferno</a>, by Patrick Burns ("If you are using R and you think
+  you're in hell, this is a map for you")
+<li><a
+  href="http://faculty.washington.edu/tlumley/Rcourse/R-fundamentals.pdf">
+  R Fundamentals and Programming Techniques</a>, by Thomas Lumley
+</ul>
+
+<a href="#top">Top</a>
 </body>
 </html>
+
