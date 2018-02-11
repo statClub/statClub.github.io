@@ -1,7 +1,40 @@
+* {
+  box-sizing: border-box;
+}
 
+.background-image {
+  background-image: url('blackboard.jpg');
+  background-size: cover;
+  display: block;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  height: 800px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  top: 10px;
+  left: 0;
+  position: fixed;
+  margin-left: 20px;
+  margin-right: 20px;
+  right: 0;
+  z-index: 2;
+  padding: 0 10px;
+}
 <html>
+<div class="background-image"></div>
+<div class="content">
+  <p>Lorem </p>
+</div>
 
-<body background="blackboard.jpg">
 
 <head>
 
@@ -20,9 +53,11 @@ It is a student-run academic group with the goal of providing students with tool
 
 <br>
 <br>
+<br>
+<br>
 
 <b>Our next meeting:</b>
-February 23, 2018
+February 23, 2018 (time and location TBA)
 <br>
 <br>
 
