@@ -4,13 +4,15 @@ p {
 h1 {
   color:red;
 }
+
 h2 {
   color:blue;
   font-weight:bold;
   font-variant: small-caps;
 }
+
 h3 {
-  color:blue;
+  font-weight:bold;
 }
 
 {
