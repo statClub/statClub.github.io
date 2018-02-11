@@ -1,4 +1,11 @@
-* {
+p { 
+  color:blue; 
+}
+h1 {
+  color:red;
+}
+
+{
   box-sizing: border-box;
 }
 
