@@ -1,73 +1,32 @@
+<div class="background-image"></div>
+<div class="content">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquam erat in ante malesuada, facilisis semper nulla semper. Phasellus sapien neque, faucibus in malesuada quis, lacinia et libero. Sed sed turpis tellus. Etiam ac aliquam tortor, eleifend rhoncus metus. Ut turpis massa, sollicitudin sit amet molestie a, posuere sit amet nisl. Mauris tincidunt cursus posuere. Nam commodo libero quis lacus sodales, nec feugiat ante posuere. Donec pulvinar auctor commodo. Donec egestas diam ut mi adipiscing, quis lacinia mauris condimentum. Quisque quis odio venenatis, venenatis nisi a, vehicula ipsum. Etiam at nisl eu felis vulputate porta.</p>
+  <p>Fusce ut placerat eros. Aliquam consequat in augue sed convallis. Donec orci urna, tincidunt vel dui at, elementum semper dolor. Donec tincidunt risus sed magna dictum, quis luctus metus volutpat. Donec accumsan et nunc vulputate accumsan. Vestibulum tempor, erat in mattis fringilla, elit urna ornare nunc, vel pretium elit sem quis orci. Vivamus condimentum dictum tempor. Nam at est ante. Sed lobortis et lorem in sagittis. In suscipit in est et vehicula.</p>
+</div>
 
-<html>
-<head>
-<title>Ryan Tibshirani</title>
-<link rel=StyleSheet href="style.css" type="text/css" media=screen>
+.background-image {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
 
-<script type="text/javascript" language="JavaScript">
-NumberOfImages = 5;
-FirstPart = '<img src="photos/ryan';
-LastPart = '.jpg" style="height: 275px;">';
-function randomImage() {
-var r = Math.ceil(Math.random() * NumberOfImages);
-document.write(FirstPart + r + LastPart);
+  display: block;
+  background-image: url('3dSquaredErrorAndCircle.pdf');
+  width: 1200px;
+  height: 800px;
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
-</script>
-</head>
 
-<body>
-<hr>
-
-<h1 style="text-align: center;">Ryan Tibshirani</h1>
-<hr>
-
-<table style="width: 75%; margin: auto;">
-<tr>
-<td id="top"><span style="text-decoration: underline;">
-<a id="top" href="index.html">Home</a></span></td>
-<td id="top">
-<a id="top" href="research.html">Research</a></td>
-<td id="top">
-<a id="top" href="teaching.html">Teaching</a></td>
-<td id="top">
-<a id="top" href="students.html">Students</a></td>
-<td id="top">
-<a id="top" href="other.html">Other</a></td>
-</tr>
-</table>
-<hr>
-
-<table style="width: 100%; border-spacing: 10px 10px;" border="0" cellpadding="0" cellspacing="0">  
-<tr>
-<td style="width: 65%">
-<img src="ryan.jpg" style="width: 100%;"></td>
-<!--<script type="text/javascript" language="JavaScript">
-randomImage();</script></td>-->
-<td style="text-align: center; width: 35%;">
-Ryan Tibshirani<br>
-Associate Professor<br>
-<a href="http://www.stat.cmu.edu">Department of Statistics</a> and<br>
-<a href="http://www.ml.cmu.edu">Machine Learning Department</a><br>
-<a href="http://www.cmu.edu">Carnegie Mellon University</a><br>
-<br>
-229B Baker Hall<br>
-Carnegie Mellon University<br>
-Pittsburgh, PA 15213<br>
-(412) 268-1884<br>
-<img alt="" src="email.gif" border="0"><br>
-</td>
-</tr>
-</table>
-
-<br>
-My research interests lie broadly in statistics, machine learning, and
-optimization. I like to think about problems from different angles: applied, 
-computational, theoretical. And I love to learn about interesting problems 
-from other disciplines!
-
-<br><br>
-<bold>Current teaching (Spring 2018):</bold>
-<a href="statcomp">36-350: Statistical Computing</a>
-
-</body>
-</html>
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}
