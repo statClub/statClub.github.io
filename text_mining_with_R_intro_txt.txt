@@ -1,0 +1,288 @@
+#
+install.packages("tibble")
+library(tibble)
+install.packages("dplyr")
+library(dplyr)
+install.packages("tidyr")
+library(tidyr)
+
+#let's create some text data ... technically not made up
+text <- c("Because I could not stop for Death ",
+          "He kindly stopped for me ",
+          "The Carriage held but just Ourselves ",
+          "and Immortality")
+text #look at it
+
+#make it a tibble
+#add a column for line number
+text_df <- tibble(line = 1:4, 
+                  text = text)
+text_df
+
+#text mining package
+install.packages("tidytext")
+library(tidytext)
+
+#tidy the data into one token per row
+#here use one word per row
+text_df %>%
+  unnest_tokens(word, text)
+
+#for our examples
+install.packages("janeaustenr")
+library(janeaustenr)
+install.packages("stringr")
+library(stringr)
+
+#Jane Austen's Works
+austen_books()
+
+#Do some cleaning of the books for this example
+original_books <- austen_books() %>%
+  group_by(book) %>%
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text,
+                                     regex("^chapter [\\divxlc]",
+                                                ignore_case = TRUE)))) %>%
+  ungroup()
+
+original_books
+View(original_books)
+str(original_books)
+head(original_books$text)
+
+#tidy the text of all of Jane Austen's works
+tidy_books <- original_books %>%
+  unnest_tokens(word, text)
+
+tidy_books
+#notice that the other columns remain in the new tibble
+
+tidy_books <- tidy_books %>%
+  anti_join(stop_words)
+
+#count number of times each word is used
+tidy_books %>%
+  count(word, sort = TRUE)
+
+install.packages("ggplot2")
+library(ggplot2)
+
+#visualize the most used words
+tidy_books %>%
+  count(word, sort = TRUE) %>%
+  filter(n > 600) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip()
+
+tidy_books %>%
+  count(word, sort = TRUE) %>%
+  filter(n > 600) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n,fill=word)) +
+  geom_col(show.legend = F) +
+  xlab(NULL) +
+  coord_flip() 
+
+####Sentiment Analysis
+
+#tibble of all sentiments in tidytext package
+sentiments
+
+#individual lexicons
+get_sentiments("bing")
+get_sentiments("nrc")
+get_sentiments("afinn")
+
+#play around with sentiments
+nrcjoy <- get_sentiments("nrc") %>%
+  filter(sentiment == "joy")
+
+get_sentiments("nrc") %>%
+  filter(sentiment != "joy")
+
+get_sentiments("nrc") %>%
+  filter(sentiment == "joy" | sentiment == "fear")
+
+get_sentiments("nrc") %>%
+  filter(sentiment %in% c("joy","happy"))
+
+nrcjoy
+
+##########
+#count the joyful words in Emma
+tidy_books %>%
+  filter(book == "Emma") %>%
+  inner_join(nrcjoy) %>% #keep rows that appear intersection of tibbles
+  count(word, sort = TRUE)
+
+#plot it
+tidy_books %>%
+  filter(book == "Emma") %>%
+  inner_join(nrcjoy) %>% #keep rows that appear intersection of tibbles
+  count(word, sort = TRUE) %>%
+  filter(n>50) %>%
+  mutate(word=reorder(word,n)) %>%
+  ggplot(aes(word,n,fill=word)) +
+  geom_col(show.legend = F) +
+  coord_flip()
+
+#####
+#sentiment scores per 80 word chunk
+tidy_books %>%
+  inner_join(get_sentiments("bing")) %>% #add on the sentiments
+  count(book, index = linenumber %/% 80, sentiment) %>% 
+  # %/% is integer division
+  #positive and negative sentiments in each 80 line chunk
+  spread(sentiment, n, fill = 0) %>%
+  #spread positive,negative to new cols
+  mutate(sentiment = positive - negative)
+
+ja_sentiment <- tidy_books %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(book, index = linenumber %/% 80, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+library(ggthemes)
+
+ja_sentiment %>%
+  ggplot(aes(index,sentiment, fill = book)) +
+  geom_col() +
+  theme_fivethirtyeight() #explore the possible themes
+#theme_economist() is fun too
+
+ja_sentiment %>%
+  filter(book == "Emma") %>%
+  ggplot(aes(index,sentiment,fill=sentiment)) +
+  geom_col() +
+  theme_fivethirtyeight()
+
+#count positive and negative words
+bing_word_counts <- tidy_books %>%
+  inner_join(get_sentiments("bing")) %>% 
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup()
+
+#plot them
+bing_word_counts %>%
+  group_by(sentiment) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Contribution to sentiment",
+       x = NULL) +
+  coord_flip()
+
+#Create custom stop words
+custom_stop_words <- bind_rows(data_frame(word = c("miss"),
+                                          lexicon = c("custom")),
+                               stop_words)
+custom_stop_words
+#now try
+bing_word_counts <- tidy_books %>%
+  inner_join(get_sentiments("bing")) %>% 
+  anti_join(custom_stop_words) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup()
+#plot them
+bing_word_counts %>%
+  group_by(sentiment) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Contribution to sentiment",
+       x = NULL) +
+  coord_flip()
+
+
+install.packages("reshape2")
+library(reshape2)
+install.packages("wordcloud")
+library(wordcloud)
+
+tidy_books %>%
+  anti_join(stop_words) %>%
+  count(word) %>%
+  with(wordcloud(word, n, max.words = 300)) #play around with max.words
+
+tidy_books %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>% 
+  comparison.cloud(colors = c("#F8766D", "#00BFC4"), 
+                   max.words = 100)
+
+###Topic Modeling
+install.packages("topicmodels")
+library(topicmodels)
+data("AssociatedPress") #a document term matrix
+AssociatedPress
+ap_td <- tidy(AssociatedPress) #tidy text data
+ap_td
+ap_td %>%
+  cast_dtm(document,term,count)
+
+#Cast Jane Austen datset to DTM
+austen_dtm <- tidy_books %>%
+              count(book,word) %>% #get count of book and word
+              cast_dtm(book,word,n)
+
+#Perform LDA Topic Modeling on Associated Press Data
+ap_LDA <- LDA(AssociatedPress, k = 2, 
+              control = list(seed = 1234))
+ap_LDA
+#extract the beta probabilities
+ap_topics <- tidy(ap_LDA, matrix = "beta")
+ap_topics
+#top 10 words per topic, by Beta value
+ap_top_terms <- ap_topics %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+ap_top_terms
+
+ap_top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip()
+
+#LDA on Jane Austen Data
+austen_LDA <- LDA(austen_dtm,k=6,
+                  control = list(seed=1234))
+
+austen_topics <- tidy(austen_LDA,matrix="beta")
+
+austen_top_terms <- austen_topics %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+austen_top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip()
+
+austen_docs <- tidy(austen_LDA,matrix="gamma")
+
+austen_docs
+
+austen_docs %>%
+  ggplot(aes(document,gamma,fill=factor(topic))) +
+  geom_col()
+  
